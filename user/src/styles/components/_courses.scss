@@ -1,0 +1,48 @@
+div.courses-page {
+	width: 100%;
+	height: 100%;
+	section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+.courses-list {
+	padding-top: 2rem;
+	width: 100%;
+	@extend %table;
+	table {
+		.color {
+			width: 1.9rem;
+			div {
+				width: 1.9rem;
+				height: 1.9rem;
+				background-color: $primary;
+				border-radius: 50%;
+			}
+		}
+		.name {
+			color: black;
+		}
+		.category, .hours, .teacher {color: grey;}
+		.grade {color: $primary;}
+	}
+}
+
+/* ===================== The course page ============================= */
+.course{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+	.navbar{
+		@extend %horizontal-nav-bar;
+	}
+	@import './course/attendance';
+	@import './course/grades';
+	@import './course/assignments';
+	@import './course/files';
+	@import './course/posts';
+	@import './course/register';
+}

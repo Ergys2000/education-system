@@ -1,0 +1,65 @@
+.login{
+	@extend %lifted-surface;
+
+	// size and color
+	border-radius: 2rem;
+	background-color: $surface;
+	color: $onSurface;
+
+	width: 50rem;
+	height: 30rem;
+	margin: auto;
+	margin-top: 5rem;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	input{
+		// size and color
+		margin: 1rem;
+		color: $onSurface;
+
+		width: 30rem;
+
+		border-top: none;
+		border-left: none;
+		border-right: none;
+		border-bottom: 0.1rem solid #111;
+
+		outline: none;
+		&:focus {
+			border-color: $secondary;
+		}
+	}
+
+  p.error {
+    color: $error;
+  }
+
+	h2{
+		text-align: center;
+		color: $primary;
+	}
+	.button-box{
+		// flex settings
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		button{
+			background-color: $secondary;
+			border: none;
+			color: $onSecondary;
+			width: 8rem;
+			height: 4rem;
+
+			padding: 1rem;
+			margin: 2rem 2rem 0 0;
+
+			border-radius: 1rem;
+			font-weight: bold;
+		}
+	}
+}

@@ -1,0 +1,55 @@
+&{
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	border: 1px solid black;
+	background-color: $surface;
+	width: 50%;
+	height: 50%;
+	margin-left: 25%;
+	margin-top: 10%;
+
+	.left-pane{
+		display: flex;
+		justify-content:center;
+		width: 30%;
+		background-color: $primary;
+		color: white;
+		h2{
+			margin: auto;
+		}
+	}
+	.right-pane{
+		margin: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		input{
+			margin: 20px;
+			background-color: $surface;
+			color: white;
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: 3px solid #111;
+			outline: none;
+		}
+		input:focus{
+			border-color: $secondary;
+		}
+	}
+	.button-box{
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		button{
+			background-color: $secondary;
+			border: none;
+			color: white;
+			width: 30%;
+			margin-top: 20px;
+			margin-left: 20px;
+			padding: 10px;
+		}
+	}
+}

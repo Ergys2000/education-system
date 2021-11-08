@@ -1,0 +1,34 @@
+div.home {
+	/* Set the home page container basic settings */
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+
+	/* Style the dashboard page */
+	.dashboard {
+		/* Flex settings */
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+
+		/* The magin between the surfaces */
+		.events, .personal {
+			margin: 2rem;
+		}
+		/* Common settings for the head of lifted surfaces */
+		.head{
+			color: $primary;
+			padding: 1rem;
+		}
+
+		@import './home/events';
+		@import './home/statistics';
+		.personal {
+			width: 50rem;
+			@import './home/upload-picture';
+			@import './settings/profile';
+		}
+	}
+}

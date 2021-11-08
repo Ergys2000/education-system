@@ -1,0 +1,26 @@
+div.settings {
+	/* Set the page container basic settings */
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+
+	section {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		@import './settings/profile';
+		@import './home/upload-picture';
+	}
+}
+/* THe style for modifying user information */
+.user-form {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	section {
+		@extend %form-container;
+	}
+}

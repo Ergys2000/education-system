@@ -1,0 +1,74 @@
+/*   The styles in this project are organized in the following way:
+ *
+ *   +------------------------------+
+ *   |     components/              |
+ *   | ---------------------------- |
+ *   | This folder holds all the    |
+ *   | important css files.         |
+ *   |                              |
+ *   |                              |
+ *   |                              |
+ *   +------------------------------+
+ *
+ *  There are these main categories of css specifications: 
+ *  
+ *  +---------------------------------------------------------------------------+
+ *  |                                                                           |
+ *  |                             components/                                   |
+ *  |                                                                           |
+ *  |                                                                           |
+ *  |  +--------------------+  +--------------------+  +--------------------+   |
+ *  |  |   _courses.scss    |  |    _general.scss   |  |  other .scss files |   |
+ *  |  | ------------------ |  | ------------------ |  | ------------------ |   |
+ *  |  | This file holds    |  | This contains      |  | Other scss files   |   |
+ *  |  | all the styles     |  | general styles     |  | are either imported|   |
+ *  |  | needed to create   |  | that are used      |  | from the main files|   |
+ *  |  | the courses view.  |  | by many components.|  | or used for their  |   |
+ *  |  |                    |  | Like:              |  | specific pages.    |   |
+ *  |  | It styles the      |  |    1. Buttons      |  | Like _home.scss    |   |
+ *  |  | 1. Assignments     |  |    2. Forms        |  | is used for the    |   |
+ *  |  | 2. Posts           |  |    3. etc          |  | Home.js component. |   |
+ *  |  | 3. Files           |  |                    |  | _schedule.scss     |   |
+ *  |  | 4. Grades          |  |                    |  | for schedule etc.  |   |
+ *  |  | 5. Attendance      |  |                    |  |                    |   |
+ *  |  +--------------------+  +--------------------+  +--------------------+   |
+ *  |                                                                           |
+ *  +---------------------------------------------------------------------------+
+ *
+ *
+ *
+ *
+ * */
+
+@import 'components/colors';
+@import 'components/general';
+@import 'components/sidenav';
+@import 'components/courses';
+@import 'components/home';
+@import 'components/schedule';
+@import 'components/scrollbar';
+@import 'components/settings';
+@import 'components/login';
+
+.app{
+	margin: 0;
+	padding: 0;
+	color: $onBackground;
+
+	.StudentPage{
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		text-align: center;
+	}
+
+	.TeacherPage{
+		display: flex;
+		flex-direction: row;
+		padding: 0;
+		text-align: center;
+		@import 'components/my-class';
+	}
+
+}
+

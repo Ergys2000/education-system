@@ -1,0 +1,16 @@
+.upload-picture {
+	@extend %lifted-surface;
+	@extend %form-container;
+
+	margin: 2rem;
+	padding: 1rem;
+
+	background-color: $surface;
+
+	h3 {
+		width: 100%;
+		color: $primary;
+		border-bottom: 1px solid $primary;
+		padding-bottom: 1rem;
+	}
+}

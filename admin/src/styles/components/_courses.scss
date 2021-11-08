@@ -1,0 +1,13 @@
+.course-list {
+    @extend %table-container;
+    @extend %form-container;
+    .hide {
+        display: none;
+    }
+}
+.course {
+    @extend %form-container;
+    button.danger {
+        @extend %danger-button;
+    }
+}

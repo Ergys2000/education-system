@@ -1,0 +1,13 @@
+.teacher-list, .student-list{
+    @extend %form-container;
+    @extend %table-container;
+    .hide {
+        display: none;
+    }
+}
+.teacher, .student {
+    @extend %form-container;
+    button.danger {
+        @extend %danger-button;
+    }
+}

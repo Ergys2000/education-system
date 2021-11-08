@@ -1,0 +1,80 @@
+/* ========= Post list ================ */
+.post-list{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.modify-post {
+		@extend %popup;
+		@extend %form-container;
+		form {
+			background-color: $background;
+			padding: 2rem;
+			border-radius: 1rem;
+			margin: auto;
+			width: 50%;
+		}
+	}
+
+	.post-item{
+		@extend %lifted-surface;
+
+		border-radius: 2rem;
+		background-color: $surface;
+		margin: 2rem;
+		width: 50%;
+
+		.header{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+
+			padding: 1rem;
+			text-align: start;
+			align-self: flex-start;
+			border-bottom: 1px solid gray;
+
+			img {
+				width: 3rem;
+				height: auto;
+				margin-right: 1rem;
+				border-radius: 50%;
+			}
+
+			.header__title {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				p { margin: 0.5rem;}
+				p.datetime {
+					font-size: 90%;
+					color: $onSurface;
+				}
+			}
+			.header__actions {
+				i { 
+					margin-left: 1rem;
+					cursor: pointer;
+					color: $onSurface; 
+				}
+				.header__actions__edit:hover {
+					color: $primary;
+				}
+				.header__actions__delete:hover {
+					color: $error;
+				}
+			}
+		}
+
+		.body{
+			padding: 1rem;
+			text-align: start;
+		}
+	}
+	@import './post__comments.scss';
+}
+
+.post-form, .assignment-form {
+	@extend %form-container;
+	width: 60rem;
+}

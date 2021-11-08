@@ -1,0 +1,30 @@
+@import 'components/colors';
+@import 'components/general';
+.app{
+	margin: 0;
+	padding: 0;
+	min-width: 100%;
+	min-height: 100%;
+	color: $onBackground;
+}
+
+.Login{
+	@import 'components/login';
+}
+
+.AdminPage{
+	@import 'components/sidenav';
+	@import 'components/classes';
+	@import 'components/courses';
+	@import 'components/events';
+	@import 'components/teachers';
+	@import 'components/schedules';
+	@import 'components/home';
+	position: absolute;
+	min-height: 100%;
+	min-width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding: 0;
+    text-align: center;
+}

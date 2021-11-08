@@ -1,0 +1,96 @@
+.schedule-list {
+	@extend %table-container;
+	@extend %form-container;
+	tr {
+		height: 2rem;
+		td {
+			padding: 0.1rem;
+		}
+	}
+	.hide {
+		display: none;
+	}
+}
+.schedule-container{
+	@extend %form-container;
+	.hide {
+		display: none;
+	}
+}
+
+.calendar {
+	margin-top: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+	.popup {
+		position: fixed;
+		z-index: 5;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0, 0.8);
+		top: 0;
+		left: 0;
+		@extend %form-container;
+		form {
+			background-color: $background;
+			padding: 20px;
+			border-radius: 10px;
+			margin: auto;
+			width: 50%;
+		}
+	}
+
+	.day-container {
+		h4 {
+			height: 30px; 
+			margin: 0;
+			cursor: pointer;
+			i {display: none;}
+			&:hover{i{display:inline;}}
+		}
+	}
+
+	.timeline {
+		margin-right: 10px;
+		margin-top: 50px;
+		padding: 0;
+		p{
+			height: 20px;
+			margin-top: 0;
+			margin-bottom: 100px;
+		}
+	}
+
+
+	.day {
+		margin-top: 30px;
+		position: relative;
+		.block {
+			border-top: 1px solid $primary;
+			border-right: 1px solid $primary;
+			&:hover {
+				background-color: $surface;
+				color: $onSurface;
+			}
+		}
+		.hour {
+			position: absolute;
+			background-color: $secondary;
+			color: $onSecondary;
+			text-align: center;
+			&:hover {
+				background-color: $primary;
+				color: $onPrimary;
+			}
+		}
+	}
+	/* Remove the right border of the last day column */
+	.last {
+		.block {
+			border-right: none;
+		}
+	}
+}
+

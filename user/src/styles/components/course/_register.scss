@@ -1,0 +1,67 @@
+/* ============= The register styling ============= */
+.register {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.header {
+		width: 50%;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		button {
+			@extend %action-button;
+			margin: 1rem;
+		}
+	}
+
+	.student-row {
+		height: 2rem;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		margin: 0;
+		padding: 0;
+
+		border: 1px solid $onBackground;
+		p {
+			width: 13rem;
+			height: 100%;
+			font-weight: bold;
+		}
+		.element {
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			p {
+				height: 100%;
+				width: 2rem;
+				text-align: center;
+				border: 1px solid $primary;
+				&:hover{
+					background-color: $primary;
+					color: $onPrimary
+				}
+			}
+		}
+	}
+
+	.popup {
+		@extend %popup;
+		@extend %form-container;
+		form {
+			background-color: $background;
+			padding: 2rem;
+			border-radius: 2rem;
+			margin: auto;
+			width: 50%;
+		}
+		.danger {
+			@extend %danger-button;
+		}
+	}
+}
+

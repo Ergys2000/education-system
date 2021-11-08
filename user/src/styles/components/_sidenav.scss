@@ -1,0 +1,131 @@
+/* Side navigation bar css*/
+.sidenav {
+  /* Flex settings */
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  /* background and padding */
+  background-color: $primary;
+  padding-top: 1rem;
+  /* Animation of width */
+  transition: width 0.4s;
+
+  /* Original width */
+  width: 7rem;
+
+	/* Profile picture settings */
+	.profile {
+		color: $onPrimary;
+		margin-bottom: 3rem;
+		img {
+			border-radius: 50%;
+			padding: 0.5rem;
+			border: 2px solid white;
+			width: 3rem;
+			height: 3rem;
+		}
+	}
+
+  /* Hide p tags by default */
+  p {
+    display: none;
+    white-space: nowrap;
+  }
+
+  /* Nav Link settings */
+  a {
+    // flex settings
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    // padding and text settings
+		margin-bottom: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 2.5rem;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: $onPrimary;
+
+    height: 4rem;
+
+    i{
+      margin-right: 1rem;
+    }
+
+    /* Link hover and active settings */
+    &:hover, &.active{
+      color: $primary;
+      background-color: $surface;
+    }
+
+		/* This puts the logout button to the bottom, because his parent has display:
+		 * flex */
+    &.logout {
+      margin-top: auto;
+      margin-bottom: 2rem;
+    }
+  }
+
+	/* Animate the navigation bar on hover */
+	&:hover {
+		/* Set the width and a little bit of padding */
+		width: 15rem;
+		padding-right: 1rem;
+		/* Display the text */
+		p{
+			display: inline;
+		}
+		/* Set some border radius for the nav links */
+		a {
+			border-radius: 0 2rem 2rem 0;
+		}
+	}
+}
+
+main{
+  /* Set the height of the main section to be 100% view height */
+  height: 100vh;
+  /* Make it grow in the flex containter if it has space */
+  flex: 1 1 auto;
+  /* Make it scrollable if it does not fit in the viewport */
+  overflow: auto;
+  /* Make items in it align in the center */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Set the min-width to 1000px to properly show forms and tables */
+  min-width: 80rem;
+
+	header {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: flex-start;
+
+		height: 10vh;
+		width: 100%;
+
+		background-color: $primary;
+		color: $surface;
+
+		margin: 0;
+
+		/* The margin for the title header */
+		h1, h2, h3 {
+			margin-left: 4rem;
+		}
+	}
+	section {
+		margin: 0;
+		padding: 0;
+
+		width: 100%;
+		min-height: 90vh;
+
+		border-radius: 4rem 0 0 0;
+		background-color: $background;
+	}
+}

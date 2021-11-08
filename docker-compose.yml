@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+  # The teacher and student client
+  edu-manage-client:
+    image: ergys2000/edu-manage-client
+    ports:
+      - 4000:4000
+    environment:
+      PORT: 4000
+      REACT_APP_API_LINK: https://2422-185-62-175-199.ngrok.io
+
+  # The admin client
+  edu-manage-admin:
+    image: ergys2000/edu-manage-admin
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      REACT_APP_API_LINK: https://2422-185-62-175-199.ngrok.io
+
+  # The api that connects with the database
+  edu-manage-server:
+    image: ergys2000/edu-manage-server
+    ports:
+      - 5000:5000
+    environment:
+      MARIADB_HOST: edu-manage-db
+      MARIADB_USER: user
+      MARIADB_PASSWORD: password
+      MARIADB_DB: education
+    volumes:
+      - education-server-files:/root/Public
+
+  # The database of the application
+  edu-manage-db:
+    image: mariadb:10.5.10
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: education
+      MARIADB_USER: user 
+      MARIADB_PASSWORD: password
+    volumes:
+      - education-mariadb-data:/var/lib/mysql
+
+volumes:
+  education-mariadb-data:
+  education-server-files:

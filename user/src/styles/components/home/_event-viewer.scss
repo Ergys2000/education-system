@@ -1,0 +1,90 @@
+/* The styling for the event viewer */
+.event-viewer {
+	/* Make it a pop up window */
+	@extend %popup;
+	/* use flex to align the items in the center */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+
+	/* Styling for the info about the event */
+	.event-viewer__info {
+		@extend %lifted-surface;
+		width: 70%;
+		min-width: 60rem;
+
+		background-color: $surface;
+		color: $onSurface;
+
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+
+		/* Styling for the image section */
+		.image-list {
+			padding: 0rem 2rem 0rem 2rem;
+
+			display: flex;
+			flex-direction: column;
+
+			h3 {
+				align-self: flex-start;
+			}
+			/* Make the images a set width  */
+			img {
+				width: 9rem;
+				height: auto;
+				margin: 1rem;
+				cursor: pointer;
+			}
+			/* This will be the container of a fullscreen image */
+			.fullscreen {
+				/* It will be a popup window */
+				@extend %popup;
+				padding: 0;
+				img {
+					margin: 0;
+					width: auto;
+					height: 100%;
+				}
+				overflow: auto;
+			}
+		}
+
+		/* Styling for the body of the event */
+		.info-description {
+			padding-left: 2rem;
+			p {
+				text-align: left;
+				/* Make the text break when it does not fit */
+				word-break: break-all;
+			}
+			border-bottom: 2px solid $onSurface;
+		}
+
+		.info-header {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+
+			h2 {
+				flex: 2;
+			}
+
+			/* Styling for the exit button */
+			i {
+				/* Put it in the end of the flex box */
+				margin-left: auto;
+				margin-right: 1rem;
+
+				cursor: pointer;
+				&:hover {
+					color: $primary;
+				}
+			}
+		}
+	}
+}

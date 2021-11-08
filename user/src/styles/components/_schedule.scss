@@ -1,0 +1,73 @@
+/* The container for the schedule page */
+div.schedule {
+	/* Set the width to display correctly */
+	width: 100%;
+
+	/* Style the section component to display the days correctly */
+	section {
+		padding-top: 4rem;
+
+		/* Flex settings */
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+
+		/* The day container / column container styling */
+		.day-container {
+			h4 { 
+				height: 2rem; 
+				margin: 0;
+			}
+		}
+
+		/* The timestamps styling */
+		.timeline {
+			margin-right: 1rem;
+			margin-top: 3.3rem;
+			padding: 0;
+			p{
+				height: 20px;
+				margin-top: 0;
+				margin-bottom: 100px;
+			}
+		}
+
+		/* The day / column styling */
+		.day {
+			margin-top: 1.9rem;
+
+			/* Make position relative so that the children that are positioned with
+			 * 'absolute' are positioned relative to this component 
+			 * */
+			position: relative;
+
+			/* Single empty block stying */
+			.block {
+				border-top: 1px solid $primary;
+				border-right: 1px solid $primary;
+			}
+
+			/* Single hour styling */
+			.hour {
+				/* Make sure the positioning of the hour is absolute, this way the top left
+				 * right bottom attributes actually refer to the day element 
+				 * */
+				position: absolute;
+				background-color: $secondary;
+				color: $onSecondary;
+				border-radius: 1rem;
+
+				/* Flex settings */
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+		}
+		/* Remove the right border of the last day column */
+		.last {
+			.block {
+				border-right: none;
+			}
+		}
+	}
+}

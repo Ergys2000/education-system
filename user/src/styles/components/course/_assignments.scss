@@ -1,0 +1,110 @@
+/* ========= Assignments ===================== */
+.assignment-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.assignment {
+		width: 70%;
+
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+
+		border-bottom: 1px solid $onBackground;
+
+		a {
+			text-decoration:none;
+			color: $onBackground;
+		}
+		p {
+			color: $onSurface;
+		}
+		.title{
+			*{
+				margin: 1vw;
+			}
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.actions {
+			position: relative;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			i{ cursor: pointer; color: $onSurface; }
+
+			.actions__edit {
+				margin: 1rem;
+				&:hover {color: $secondary;}
+			}
+			.actions__delete {
+				margin: 1rem;
+				&:hover {color: $error;}
+			}
+		}
+		&:hover{
+			a{
+				color: $secondary;
+			}
+		}
+
+		.assignment__modify {
+			@extend %popup;
+			@extend %form-container;
+			form {
+				background-color: $background;
+				padding: 3rem;
+				border-radius: 1rem;
+				margin: auto;
+				width: 50%;
+			}
+		}
+	}
+}
+
+.assignment {
+	.files {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+
+		.hidden {
+			display: none;
+		}
+
+		.student-files {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.student{
+				min-width: 30rem;
+				width: 30rem;
+				margin-bottom: 0.5rem;
+				
+				.head{
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					align-items: center;
+					h4 {margin: 0; padding:0;}
+
+					padding: 0.5rem;
+					background-color: $secondary;
+					color: $onSecondary;
+				}
+				.body{
+					border: 1px solid $secondary;
+					i{cursor: pointer;}
+					i:hover {color: $primary;}
+				}
+			}
+		}
+	}
+}
+
+

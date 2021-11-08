@@ -1,0 +1,38 @@
+/* The style for the profile surface */
+.profile {
+	@extend %lifted-surface;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin: 2rem;
+
+	background-color: $surface;
+	.labels {
+		margin: 1vh 3vw 1vh 3vh;
+		display: flex;
+		flex-direction: column;
+		align-items: left;
+		color: $onSurface;
+	}
+
+	.values {
+		margin: 1vh 3vw 1vh 3vh;
+		display: flex;
+		flex-direction: column;
+		align-items: right;
+	}
+
+	.head {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		border-right: 2px solid $primary;
+		padding: 0 2rem 0 1rem;
+		button {
+			@extend %action-button;
+			padding: 1rem;
+			margin: 1rem;
+		}
+	}
+}
+

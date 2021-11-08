@@ -1,0 +1,90 @@
+/* Styling for the events surface */
+.events{
+	/* Make it a lifted surface */
+	@extend %lifted-surface;
+	background-color: $surface;
+
+	/* Flex settings */
+	display: flex;
+	flex-direction: column;
+	/* Make it align to the top of the flex container
+	 * and also disable automatic height*/
+	align-self: flex-start;
+
+	min-height: 60vh;
+	max-height: 90vh;
+
+
+	padding: 0 2rem 0 2rem;
+
+	/* Make the event list scrollable */
+	.events__list {
+		overflow-y: auto;
+	}
+
+	/* Style the header */
+	.head {
+		border-bottom: 1px solid $primary;
+	}
+
+	/* Style the event element */
+	.event {
+		/* Flex settings */
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		margin-top: 1rem;
+
+		/* The styling for the each event date */
+		.event__date {
+			transition: 0.2s;
+			/* Flex settings */
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+
+			/* Border is also set inline dynamically but we can use this to fall back to if
+			 * that fails*/
+			border: 2px solid red;
+			border-radius: 10px 0 0 10px;
+			padding: 10px 14px 10px 14px;
+
+			/* Set e fixed width and height */
+			width: 5rem;
+			height: 5rem;
+			font-size: 1.5rem;
+
+			&:hover {
+				background-color: $secondary;
+				color: $onSecondary;
+			}
+
+			p {
+				padding: 0;
+				margin: 0;
+			}
+		}
+
+		/* The styling for the description */
+		.event__description {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+
+			height: 5rem;
+			width: 7rem;
+
+			p, h4 {
+				padding: 0;
+				margin: 0;
+			}
+
+			p {color: $onSurface;}
+		}
+
+		@import './event-viewer';
+
+	}
+}

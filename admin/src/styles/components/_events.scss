@@ -1,0 +1,23 @@
+.event-list {
+    @extend %table-container;
+    @extend %form-container;
+		.event-form {
+			width: 100%;
+		}
+}
+.event {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+    @extend %form-container;
+    button.danger {
+        @extend %danger-button;
+    }
+    .images {
+        img{
+            max-width: 30%;
+            max-height: 30%;
+        }
+    }
+}
