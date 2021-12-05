@@ -1312,3 +1312,30 @@ exports.putComment = (req, res) => {
 		res.json(ResponseWrapper("ERROR", null, error.message));
 	}
 }
+
+/* ================= Get min and max grade ===================== */
+exports.getGradeLimits = (req, res) => {
+	try {
+		const sql = `SELECT * FROM config WHERE \`key\`='minGrade' OR \`key\`='maxGrade'`;
+		const args = [];
+		conn.query(sql, args, (err, result, fields) => {
+			console.log(result);
+			try {
+				if (err) throw err;
+				console.log(result);
+				if (result.length != 2) throw 'Could not find those two config items';
+				const response = {
+					[result[0].key]: parseInt(result[0].value),
+					[result[1].key]: parseInt(result[1].value),
+				};
+				res.json(ResponseWrapper("OK", response, ""));
+			} catch (e) {
+				/* handle error */
+				res.json(ResponseWrapper("ERROR", result, e.message));
+			}
+		});
+	} catch (e) {
+		/* handle error */
+		res.json(ResponseWrapper("ERROR", null, e.message));
+	}
+}

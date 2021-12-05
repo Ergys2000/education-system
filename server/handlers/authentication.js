@@ -54,7 +54,6 @@ exports.validateTeacher = (req, res, next) => {
 			res.json(ResponseWrapper("ERROR", { token: null, authenticated: false }, err.message));
 		}
 	});
-
 }
 
 exports.validateAdmin = (req, res, next) => {

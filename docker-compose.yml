@@ -8,7 +8,7 @@ services:
       - 4000:4000
     environment:
       PORT: 4000
-      REACT_APP_API_LINK: https://2422-185-62-175-199.ngrok.io
+      REACT_APP_API_LINK: http://localhost:5000
 
   # The admin client
   edu-manage-admin:
@@ -17,7 +17,7 @@ services:
       - 3000:3000
     environment:
       PORT: 3000
-      REACT_APP_API_LINK: https://2422-185-62-175-199.ngrok.io
+      REACT_APP_API_LINK: http://localhost:5000
 
   # The api that connects with the database
   edu-manage-server:

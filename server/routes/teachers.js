@@ -47,6 +47,8 @@ router.get("/:teacherID/picture",
 	teacherHandler.downloadProfilePic);
 /* ================================================================= */
 
+router.get("/:teacherID/gradeLimits", teacherHandler.getGradeLimits);
+
 /* ==================== Events ============================ */
 /* Get the list of events */
 router.get("/:teacherID/events",

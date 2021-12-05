@@ -12,11 +12,14 @@ function AddGrades(props) {
 	const history = useHistory();
 
 	const [students, setStudents] = useState([]);
+	const [gradeLimits, setGradeLimits] = useState({
+		minGrade: 4,
+		maxGrade: 10
+	});
 	useEffect(() => {
+		const token = sessionStorage.getItem("jwt");
+		const bearer = 'Bearer ' + token;
 		const fetchStudents = async () => {
-
-			const token = sessionStorage.getItem("jwt");
-			const bearer = 'Bearer ' + token;
 			await fetch(`${apiLink}/teachers/${teacherId}/courses/${course.id}/students`, {
 				headers: {
 					'Authorization': bearer
@@ -33,7 +36,23 @@ function AddGrades(props) {
 							array.push(4);
 						}
 						setGrades(array);
-
+					} else {
+						alert("Error", res.message, "error");
+					}
+				}).catch(_ => console.log(_));
+		}
+		const fetchMaxAndMinGrade = async () => {
+			await fetch(`${apiLink}/teachers/${teacherId}/gradeLimits`, {
+				headers: {
+					'Authorization': bearer
+				}
+			})
+				.then(res => res.json())
+				.then(res => {
+					console.log(res);
+					if (res.status === "OK") {
+						setGradeLimits({ minGrade: res.result.minGrade, maxGrade: res.result.maxGrade });
+						console.log("Grades changed");
 					} else {
 						alert("Error", res.message, "error");
 					}
@@ -41,7 +60,7 @@ function AddGrades(props) {
 		}
 
 		fetchStudents();
-
+		fetchMaxAndMinGrade();
 	}, [teacherId, course.id]);
 
 	// session will hold the common values for all the grades
@@ -119,7 +138,8 @@ function AddGrades(props) {
 			newArray[key] += delta;
 
 			/* Check if the new value conforms to the rules */
-			if (newArray[key] > 10 || newArray[key] < 4) {
+			/* Here instead of 10 and 4 put max and min grade */
+			if (newArray[key] > gradeLimits.maxGrade || newArray[key] < gradeLimits.minGrade) {
 				alert("Error", "Not allowed!", "error");
 				return;
 			}
@@ -270,7 +290,7 @@ function AddSingleGrade(props) {
 			.then(res => res.json())
 			.then(res => {
 				if (res.status === "OK") {
-          alert("Success!", res.message, "success");
+					alert("Success!", res.message, "success");
 					history.push(`/t/${teacherId}/courses/${course.id}/grades`);
 				} else {
 					alert("Error", res.message, "error");

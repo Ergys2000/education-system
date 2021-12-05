@@ -32,7 +32,6 @@ export default function Attendance(props) {
 			<table>
 				<thead>
 					<tr>
-						<th>Week</th>
 						<th>Topic</th>
 						<th>Type</th>
 						<th>Date</th>
@@ -58,7 +57,6 @@ function SessionRow(props) {
 	}
 	return (
 		<tr>
-			<td>{session.week}</td>
 			<td>{session.topic}</td>
 			<td>{session.type}</td>
 			<td>{dateString}</td>
