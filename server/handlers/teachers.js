@@ -459,7 +459,7 @@ exports.getCourseAssignments = (req, res) => {
 	const courseInstanceID = req.params.courseInstanceID;
 
 	try {
-		const sql = `SELECT id, title, description, courseInstanceID, due
+		const sql = `SELECT id, title, description, courseInstanceID, releaseDate, due
 			from assignment where courseInstanceID=? ORDER BY due DESC`;
 
 		const args = [courseInstanceID];
@@ -497,11 +497,11 @@ exports.getCourseAssignment = (req, res) => {
 /* Add a new course assignment */
 exports.postCourseAssignment = (req, res) => {
 	const courseInstanceID = req.params.courseInstanceID;
-	const { title, description, due } = req.body;
+	const { title, description, due, releaseDate } = req.body;
 
-	const sql = `INSERT INTO assignment(title, description, courseInstanceID, due)
-		VALUE(?, ?, ?, ?)`;
-	const args = [title, description, courseInstanceID, due];
+	const sql = `INSERT INTO assignment(title, description, courseInstanceID, due, releaseDate)
+		VALUE(?, ?, ?, ?, ?)`;
+	const args = [title, description, courseInstanceID, due, releaseDate];
 
 	conn.query(sql, args, (err, result, fields) => {
 		try {
@@ -519,10 +519,10 @@ exports.postCourseAssignment = (req, res) => {
 exports.putCourseAssignment = (req, res) => {
 	try {
 		const assignmentID = req.params.assignmentID;
-		const { title, description, due } = req.body;
+		const { title, description, due, releaseDate } = req.body;
 
-		const sql = `UPDATE assignment SET title=?, description=?, due=? WHERE id=?`;
-		const args = [title, description, due, assignmentID];
+		const sql = `UPDATE assignment SET title=?, description=?, due=?, releaseDate=? WHERE id=?`;
+		const args = [title, description, due, releaseDate, assignmentID];
 
 		conn.query(sql, args, (err, result, fields) => {
 			try {

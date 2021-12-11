@@ -101,7 +101,8 @@ function ModifyAssignment({ assignment, close, updateList }) {
 	const [form, setForm] = useState({
 		title: assignment.title,
 		description: assignment.description,
-		due: assignment.due
+		due: assignment.due,
+		releaseDate: assignment.releaseDate
 	});
 	const handleChange = (event) => {
 		event.preventDefault();
@@ -162,6 +163,11 @@ function ModifyAssignment({ assignment, close, updateList }) {
 					<br />
 					<input name="due" value={form.due} onChange={handleChange} type="datetime-local" />
 				</label>
+				<label>
+					Release date
+					<br />
+					<input name="releaseDate" value={form.releaseDate} onChange={handleChange} type="datetime-local" />
+				</label>
 				<button>Modify assignment</button>
 				<button onClick={cancel}>Cancel</button>
 			</form>
@@ -177,7 +183,8 @@ function AssignmentForm(props) {
 	const [form, setForm] = useState({
 		title: "",
 		description: "",
-		due: ""
+		due: "",
+		releaseDate: ""
 	});
 
 	const [shown, setShown] = useState(false);
@@ -244,6 +251,11 @@ function AssignmentForm(props) {
 					Due
 					<br />
 					<input name="due" value={form.due} onChange={handleChange} type="datetime-local" />
+				</label>
+				<label>
+					Release Date
+					<br />
+					<input name="releaseDate" value={form.releaseDate} onChange={handleChange} type="datetime-local" />
 				</label>
 				<button>Add assignment</button>
 				<button onClick={hide}>Cancel</button>

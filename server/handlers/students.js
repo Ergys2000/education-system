@@ -416,8 +416,8 @@ exports.getCourseAttendance = (req, res) => {
 exports.getCourseAssignments = (req, res) => {
 	const courseInstanceID = req.params.courseInstanceID;
 
-	const sql = `SELECT id, title, description, courseInstanceID,  DATE_FORMAT(due, '%Y-%m-%d %T') as due
-			from assignment where courseInstanceID=? ORDER BY due DESC`;
+	const sql = `SELECT id, title, description, courseInstanceID, DATE_FORMAT(due, '%Y-%m-%d %T') as due
+			from assignment where courseInstanceID=? and releaseDate < NOW() ORDER BY due DESC`;
 
 	const args = [courseInstanceID];
 	conn.query(sql, args, (err, result, fields) => {
