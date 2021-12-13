@@ -10,7 +10,6 @@ const isNumeric = (string) => {
 }
 
 function NewSession(props) {
-
 	const course = useContext(CourseContext);
 	const teacherId = useContext(TeacherContext);
 	const history = useHistory();
@@ -56,7 +55,6 @@ function NewSession(props) {
 	/* This state holds session information, which will be manipulated by the
 	 * teacher */
 	const [session, setSession] = useState({
-		week: 0,
 		topic: "",
 		type: "lecture",
 		length: 1,
@@ -67,7 +65,6 @@ function NewSession(props) {
 
 	/* Handles the changes in the input fields */
 	const handleChange = (event) => {
-
 		event.preventDefault();
 		/* target holds the field information, like it's value
 		 * and it's name, from which we distinguish which field it is
@@ -103,7 +100,6 @@ function NewSession(props) {
 		if (session.topic === "" ||
 			session.date === "" ||
 			session.type === "" ||
-			session.week <= 0 ||
 			session.length <= 0 ||
 			session.length > 10) {
 
@@ -127,6 +123,8 @@ function NewSession(props) {
 					// we now use the insertId returned by our request to
 					// insert the students into that session
 					submitStudents(res.result.insertId);
+				} else {
+					alert("Error!", res.message, "error");
 				}
 			})
 	}
@@ -151,6 +149,7 @@ function NewSession(props) {
 			.then(res => res.json())
 			.then(res => {
 				if (res.status === "OK") {
+					console.log(res);
 					const result = res.result;
 					if (result.affectedRows === students.length) {
 						alert("Success!", "The session was successfully added", "success");
@@ -188,10 +187,6 @@ function NewSession(props) {
 	return (
 		<div className="add-session">
 			<label>
-				Week:
-				<input name="week" placeholder="week" type="number" onChange={handleChange} value={session.week} />
-			</label>
-			<label>
 				Topic:
 				<input name="topic" placeholder="topic" onChange={handleChange} value={session.topic} />
 			</label>
@@ -208,7 +203,7 @@ function NewSession(props) {
 			</label>
 			<label>
 				Date:
-				<input name="date" placeholder="week" type="date" onChange={handleChange} value={session.date} />
+				<input name="date" placeholder="Date" type="date" onChange={handleChange} value={session.date} />
 			</label>
 			<button onClick={onSubmit}>Submit</button>
 			<div className="horizontal-divider"></div>

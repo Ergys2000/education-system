@@ -1,5 +1,6 @@
 const conn = require("../mysqlConnection");
 const fs = require("fs");
+const excel = require("exceljs");
 const { ResponseWrapper } = require("../routes/utils");
 const public_dir = `${process.env['HOME']}/Public`;
 
@@ -744,7 +745,6 @@ exports.getAssignmentStudentFiles = (req, res) => {
 /* ==> Attendance  */
 /* Get all the sessions done so far for this course */
 exports.getCourseAttendanceSessions = (req, res) => {
-
 	const courseInstanceID = req.params.courseInstanceID;
 	conn.query(`
 		SELECT
@@ -752,8 +752,7 @@ exports.getCourseAttendanceSessions = (req, res) => {
 			se.topic as topic,
 			se.type as type,
 			se.date,
-			se.length as total,
-			se.week as week
+			se.length as total
 		FROM course_registration as cr, session as se
 		WHERE 
 			se.courseInstanceID=cr.id
@@ -800,19 +799,14 @@ exports.getCourseAttendanceSession = (req, res) => {
 
 /* Create a new session */
 exports.postCourseAttendanceSession = (req, res) => {
-
 	const courseId = req.params.courseInstanceID;
 
-	const week = req.body.week;
-	const topic = req.body.topic;
-	const type = req.body.type;
-	const length = req.body.length;
-	const date = req.body.date;
+	const { topic, type, length, date } = req.body;
 
 	conn.query(`
-		INSERT INTO session(week, topic, type, length, courseInstanceID, date) 
-		VALUE (?, ?, ?, ?, ?, ?)`,
-		[week, topic, type, length, courseId, date],
+		INSERT INTO session(topic, type, length, courseInstanceID, date) 
+		VALUE (?, ?, ?, ?, ?)`,
+		[topic, type, length, courseId, date],
 		(err, result, fields) => {
 			try {
 				if (err) throw err;
@@ -1319,7 +1313,6 @@ exports.getGradeLimits = (req, res) => {
 		const sql = `SELECT * FROM config WHERE \`key\`='minGrade' OR \`key\`='maxGrade'`;
 		const args = [];
 		conn.query(sql, args, (err, result, fields) => {
-			console.log(result);
 			try {
 				if (err) throw err;
 				console.log(result);
@@ -1338,4 +1331,58 @@ exports.getGradeLimits = (req, res) => {
 		/* handle error */
 		res.json(ResponseWrapper("ERROR", null, e.message));
 	}
+}
+
+/* Export some attendance records to excel sheet */
+exports.exportAttendanceToExcel = (req, res) => {
+	try {
+		const sql = `
+		SELECT 
+			s.id,
+			s.firstname,
+			s.lastname,
+			sa.length as attended,
+			se.length as total
+		FROM session as se, session_attendance as sa, student as s
+		WHERE 
+			se.date=?
+			and se.courseInstanceID=?
+			and sa.sessionID=se.id
+			and s.id=sa.studentID
+		`;
+		const { date } = req.query;
+		const { courseInstanceID } = req.params;
+		conn.query(sql, [date, courseInstanceID], (err, result, fields) => {
+			try {
+				console.log(result);
+				let workbook = new excel.Workbook();
+				let worksheet = workbook.addWorksheet("Attendance");
+				worksheet.columns = [
+					{ header: "Id", key: "id", width: 5 },
+					{ header: "Firstname", key: "firstname", width: 15 },
+					{ header: "Lastname", key: "lastname", width: 15 },
+					{ header: "Attended", key: "attended", width: 15 },
+					{ header: "Total", key: "total", width: 15 },
+				];
+				worksheet.addRows(result);
+				res.setHeader(
+					"Content-Type",
+					"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+				);
+				res.setHeader(
+					"Content-Disposition",
+					"attachment; filename=" + "attendance.xlsx"
+				);
+				return workbook.xlsx.write(res).then(() => {
+					res.status(200).end();
+				});
+
+			} catch (e) {
+				res.json(ResponseWrapper("ERROR", null, e.message));
+			}
+		});
+	} catch (e) {
+		res.json(ResponseWrapper("ERROR", null, e.message));
+	}
+
 }
