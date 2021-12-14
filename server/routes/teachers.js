@@ -320,6 +320,6 @@ router.put("/:teacherID/courses/:courseInstanceID/posts/:postID/comments/:commen
 /* ============================================================ */
 
 /* Get attendance for a date as excel sheet */
-router.get("/:teacherID/courses/:courseInstanceID/attendanceExcel", teacherHandler.exportAttendanceToExcel);
+router.get("/:teacherID/courses/:courseInstanceID/attendanceExcel/:sessionID", teacherHandler.exportAttendanceToExcel);
 
 module.exports = router;

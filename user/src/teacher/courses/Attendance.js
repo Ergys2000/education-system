@@ -22,7 +22,7 @@ function Attendance(props) {
 			})
 				.then(res => res.json())
 				.then(res => {
-					if(res.status === "OK") {
+					if (res.status === "OK") {
 						setSessions(res.result);
 					} else {
 						alert("Error", res.message, "error");
@@ -43,6 +43,7 @@ function Attendance(props) {
 						<th>Date</th>
 						<th>Hours</th>
 						<th></th>
+						<th>Export to Excel</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -53,7 +54,10 @@ function Attendance(props) {
 	);
 }
 
-function SessionRow({session}) {
+function SessionRow({ session }) {
+	const teacherId = useContext(TeacherContext);
+	const course = useContext(CourseContext);
+
 	const history = useHistory();
 	function onClick() {
 		history.push(`attendance/${session.id}`);
@@ -61,8 +65,14 @@ function SessionRow({session}) {
 	let dateString = '';
 	try {
 		dateString = new Date(session.date).toDateString();
-	} catch (err) { 
+	} catch (err) {
 		dateString = session.date;
+	}
+	function exportToExcel(event) {
+		event.preventDefault();
+		const downloadUrl =
+			`${apiLink}/teachers/${teacherId}/courses/${course.id}/attendanceExcel/${session.id}`;
+		window.open(downloadUrl, '_blank');
 	}
 	return (
 		<tr>
@@ -71,6 +81,7 @@ function SessionRow({session}) {
 			<td>{dateString}</td>
 			<td>{session.total}</td>
 			<td><button onClick={onClick}>VIEW</button></td>
+			<td><button onClick={exportToExcel}><i className="material-icons">description</i></button></td>
 		</tr>
 	)
 }

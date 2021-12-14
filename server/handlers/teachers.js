@@ -1345,14 +1345,13 @@ exports.exportAttendanceToExcel = (req, res) => {
 			se.length as total
 		FROM session as se, session_attendance as sa, student as s
 		WHERE 
-			se.date=?
+			se.id=?
 			and se.courseInstanceID=?
 			and sa.sessionID=se.id
 			and s.id=sa.studentID
 		`;
-		const { date } = req.query;
-		const { courseInstanceID } = req.params;
-		conn.query(sql, [date, courseInstanceID], (err, result, fields) => {
+		const { courseInstanceID, sessionID } = req.params;
+		conn.query(sql, [sessionID, courseInstanceID], (err, result, fields) => {
 			try {
 				console.log(result);
 				let workbook = new excel.Workbook();
