@@ -1,28 +1,21 @@
--- MariaDB dump 10.19  Distrib 10.5.9-MariaDB, for Linux (x86_64)
---
--- Host: localhost    Database: education
--- ------------------------------------------------------
--- Server version	10.5.9-MariaDB
+-- --------------------------------------------------------
+-- Host:                         localhost
+-- Server version:               10.5.10-MariaDB-1:10.5.10+maria~focal - mariadb.org binary distribution
+-- Server OS:                    debian-linux-gnu
+-- HeidiSQL Version:             12.0.0.6468
+-- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `admin`
---
-
-DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `admin` (
+-- Dumping structure for table education.admin
+CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(30) DEFAULT NULL,
   `lastname` varchar(30) DEFAULT NULL,
@@ -33,60 +26,43 @@ CREATE TABLE `admin` (
   `access` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `admin`
---
+-- Dumping data for table education.admin: ~2 rows (approximately)
+INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`, `age`, `gender`, `access`) VALUES
+	(1, 'ergys', 'ergys', 'name@gmail.com', 'password', 20, 'male', 'supervisor'),
+	(5, 'ergys', 'rrjolli', 'rrjolligys@gmail.com', 'password', 22, 'male', 'supervisor');
 
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (1,'ergys','ergys','name@gmail.com','password',20,'male','supervisor');
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `assignment`
---
-
-DROP TABLE IF EXISTS `assignment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `assignment` (
+-- Dumping structure for table education.assignment
+CREATE TABLE IF NOT EXISTS `assignment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `courseInstanceID` int(11) NOT NULL,
   `due` datetime NOT NULL,
+  `releaseDate` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `courseInstanceID` (`courseInstanceID`),
   CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
---
--- Table structure for table `class`
---
+-- Dumping data for table education.assignment: ~1 rows (approximately)
+INSERT INTO `assignment` (`id`, `title`, `description`, `courseInstanceID`, `due`, `releaseDate`) VALUES
+	(18, 'Homework 1', 'Finish these', 65, '2024-08-23 13:45:00', '2024-08-19 13:45:00');
 
-DROP TABLE IF EXISTS `class`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `class` (
+-- Dumping structure for table education.class
+CREATE TABLE IF NOT EXISTS `class` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
---
--- Table structure for table `class_instance`
---
+-- Dumping data for table education.class: ~1 rows (approximately)
+INSERT INTO `class` (`id`, `name`) VALUES
+	(13, 'Computer engineering 1');
 
-DROP TABLE IF EXISTS `class_instance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `class_instance` (
+-- Dumping structure for table education.class_instance
+CREATE TABLE IF NOT EXISTS `class_instance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `year` int(11) NOT NULL,
   `classID` int(11) NOT NULL,
@@ -100,40 +76,26 @@ CREATE TABLE `class_instance` (
   CONSTRAINT `advisor_fk` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`id`),
   CONSTRAINT `class_instance_ibfk_1` FOREIGN KEY (`classID`) REFERENCES `class` (`id`),
   CONSTRAINT `schedule_fk` FOREIGN KEY (`scheduleID`) REFERENCES `schedule` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `class_instance`
---
+-- Dumping data for table education.class_instance: ~1 rows (approximately)
+INSERT INTO `class_instance` (`id`, `year`, `classID`, `scheduleID`, `teacherID`, `name`) VALUES
+	(23, 2022, 13, 23, 12, 'Computer engineering 1 - 2022');
 
---
--- Table structure for table `course`
---
-
-DROP TABLE IF EXISTS `course`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `course` (
+-- Dumping structure for table education.course
+CREATE TABLE IF NOT EXISTS `course` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `category` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `course`
---
+-- Dumping data for table education.course: ~1 rows (approximately)
+INSERT INTO `course` (`id`, `name`, `category`) VALUES
+	(21, 'Calculus 1', 'Mathematics');
 
---
--- Table structure for table `course_registration`
---
-
-DROP TABLE IF EXISTS `course_registration`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `course_registration` (
+-- Dumping structure for table education.course_registration
+CREATE TABLE IF NOT EXISTS `course_registration` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `classInstanceID` int(11) NOT NULL,
   `courseID` int(11) NOT NULL,
@@ -145,21 +107,14 @@ CREATE TABLE `course_registration` (
   CONSTRAINT `course_registration_ibfk_1` FOREIGN KEY (`classInstanceID`) REFERENCES `class_instance` (`id`) ON DELETE CASCADE,
   CONSTRAINT `course_registration_ibfk_2` FOREIGN KEY (`courseID`) REFERENCES `course` (`id`),
   CONSTRAINT `teacher_fk` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `course_registration`
---
+-- Dumping data for table education.course_registration: ~1 rows (approximately)
+INSERT INTO `course_registration` (`id`, `classInstanceID`, `courseID`, `teacherID`) VALUES
+	(65, 23, 21, 12);
 
---
--- Table structure for table `day_hours`
---
-
-DROP TABLE IF EXISTS `day_hours`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `day_hours` (
+-- Dumping structure for table education.day_hours
+CREATE TABLE IF NOT EXISTS `day_hours` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `dayID` int(11) NOT NULL,
   `courseInstanceID` int(11) NOT NULL,
@@ -170,21 +125,15 @@ CREATE TABLE `day_hours` (
   KEY `courseInstanceID` (`courseInstanceID`),
   CONSTRAINT `day_fk` FOREIGN KEY (`dayID`) REFERENCES `schedule_day` (`id`) ON DELETE CASCADE,
   CONSTRAINT `day_hours_ibfk_1` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `day_hours`
---
+-- Dumping data for table education.day_hours: ~2 rows (approximately)
+INSERT INTO `day_hours` (`id`, `dayID`, `courseInstanceID`, `start`, `end`) VALUES
+	(97, 59, 65, '10:00:00', '10:50:00'),
+	(98, 60, 65, '16:30:00', '17:30:00');
 
---
--- Table structure for table `event`
---
-
-DROP TABLE IF EXISTS `event`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event` (
+-- Dumping structure for table education.event
+CREATE TABLE IF NOT EXISTS `event` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
@@ -194,20 +143,11 @@ CREATE TABLE `event` (
   KEY `classInstanceID` (`classInstanceID`),
   CONSTRAINT `event_ibfk_1` FOREIGN KEY (`classInstanceID`) REFERENCES `class_instance` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `event`
---
+-- Dumping data for table education.event: ~0 rows (approximately)
 
---
--- Table structure for table `event_image`
---
-
-DROP TABLE IF EXISTS `event_image`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `event_image` (
+-- Dumping structure for table education.event_image
+CREATE TABLE IF NOT EXISTS `event_image` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(50) NOT NULL,
   `eventID` int(11) NOT NULL,
@@ -215,20 +155,11 @@ CREATE TABLE `event_image` (
   KEY `eventID` (`eventID`),
   CONSTRAINT `event_image_ibfk_1` FOREIGN KEY (`eventID`) REFERENCES `event` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `event_image`
---
+-- Dumping data for table education.event_image: ~0 rows (approximately)
 
---
--- Table structure for table `grade`
---
-
-DROP TABLE IF EXISTS `grade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `grade` (
+-- Dumping structure for table education.grade
+CREATE TABLE IF NOT EXISTS `grade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `studentID` int(11) NOT NULL,
   `grade` int(11) NOT NULL,
@@ -240,41 +171,29 @@ CREATE TABLE `grade` (
   KEY `grade_ibfk_2` (`courseInstanceID`),
   CONSTRAINT `grade_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE,
   CONSTRAINT `grade_ibfk_2` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `grade`
---
+-- Dumping data for table education.grade: ~1 rows (approximately)
+INSERT INTO `grade` (`id`, `studentID`, `grade`, `date`, `courseInstanceID`, `comment`) VALUES
+	(65, 20, 9, '2024-08-20', 65, 'Grades for Homework 1');
 
---
--- Table structure for table `jwt_token`
---
-
-DROP TABLE IF EXISTS `jwt_token`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `jwt_token` (
+-- Dumping structure for table education.jwt_token
+CREATE TABLE IF NOT EXISTS `jwt_token` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `type` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user` (`userID`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=657 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=662 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `jwt_token`
---
+-- Dumping data for table education.jwt_token: ~3 rows (approximately)
+INSERT INTO `jwt_token` (`id`, `userID`, `type`) VALUES
+	(659, 1, 'admin'),
+	(660, 12, 'teacher'),
+	(661, 20, 'student');
 
---
--- Table structure for table `parent`
---
-
-DROP TABLE IF EXISTS `parent`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `parent` (
+-- Dumping structure for table education.parent
+CREATE TABLE IF NOT EXISTS `parent` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
@@ -285,20 +204,11 @@ CREATE TABLE `parent` (
   `gender` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `parent`
---
+-- Dumping data for table education.parent: ~0 rows (approximately)
 
---
--- Table structure for table `post`
---
-
-DROP TABLE IF EXISTS `post`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post` (
+-- Dumping structure for table education.post
+CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `posted_on` datetime NOT NULL,
@@ -312,42 +222,28 @@ CREATE TABLE `post` (
   CONSTRAINT `post_fk2` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `post`
---
+-- Dumping data for table education.post: ~1 rows (approximately)
+INSERT INTO `post` (`id`, `title`, `posted_on`, `courseInstanceID`, `teacherID`, `studentID`) VALUES
+	(55, 'Notification', '2024-08-20 11:37:44', 65, 12, NULL);
 
---
--- Table structure for table `post_body`
---
-
-DROP TABLE IF EXISTS `post_body`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post_body` (
+-- Dumping structure for table education.post_body
+CREATE TABLE IF NOT EXISTS `post_body` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `postID` int(11) NOT NULL,
   `body` text DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `postID` (`postID`),
   CONSTRAINT `postID` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `post_body`
---
+-- Dumping data for table education.post_body: ~1 rows (approximately)
+INSERT INTO `post_body` (`id`, `postID`, `body`) VALUES
+	(58, 55, 'make sure you prepare for the test on monday');
 
---
--- Table structure for table `post_comment`
---
-
-DROP TABLE IF EXISTS `post_comment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `post_comment` (
+-- Dumping structure for table education.post_comment
+CREATE TABLE IF NOT EXISTS `post_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `comment` varchar(1500) COLLATE utf8mb4_unicode_ci NOT NULL,
   `postID` int(11) NOT NULL,
@@ -361,21 +257,14 @@ CREATE TABLE `post_comment` (
   CONSTRAINT `post_comment_ibfk_1` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_comment_ibfk_2` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`id`) ON DELETE CASCADE,
   CONSTRAINT `post_comment_ibfk_3` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `post_comment`
---
+-- Dumping data for table education.post_comment: ~1 rows (approximately)
+INSERT INTO `post_comment` (`id`, `comment`, `postID`, `commented_on`, `studentID`, `teacherID`) VALUES
+	(37, 'This is a comment to a post', 55, '2024-08-20 11:37:57', NULL, 12);
 
---
--- Table structure for table `register`
---
-
-DROP TABLE IF EXISTS `register`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `register` (
+-- Dumping structure for table education.register
+CREATE TABLE IF NOT EXISTS `register` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `mark` varchar(1) NOT NULL,
   `comment` varchar(100) DEFAULT NULL,
@@ -387,39 +276,25 @@ CREATE TABLE `register` (
   KEY `courseInstanceID` (`courseInstanceID`),
   CONSTRAINT `register_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE,
   CONSTRAINT `register_ibfk_2` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `register`
---
+-- Dumping data for table education.register: ~1 rows (approximately)
+INSERT INTO `register` (`id`, `mark`, `comment`, `date`, `studentID`, `courseInstanceID`) VALUES
+	(31, '3', 'behaved badly', '2024-08-14', 20, 65);
 
---
--- Table structure for table `schedule`
---
-
-DROP TABLE IF EXISTS `schedule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `schedule` (
+-- Dumping structure for table education.schedule
+CREATE TABLE IF NOT EXISTS `schedule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `schedule`
---
+-- Dumping data for table education.schedule: ~1 rows (approximately)
+INSERT INTO `schedule` (`id`, `name`) VALUES
+	(23, 'Computer Engineering 1');
 
---
--- Table structure for table `schedule_day`
---
-
-DROP TABLE IF EXISTS `schedule_day`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `schedule_day` (
+-- Dumping structure for table education.schedule_day
+CREATE TABLE IF NOT EXISTS `schedule_day` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `scheduleID` int(11) NOT NULL,
   `name` varchar(20) DEFAULT NULL,
@@ -427,21 +302,18 @@ CREATE TABLE `schedule_day` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_day_nr` (`scheduleID`,`day`),
   CONSTRAINT `schedule_day_ibfk_1` FOREIGN KEY (`scheduleID`) REFERENCES `schedule` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `schedule_day`
---
+-- Dumping data for table education.schedule_day: ~5 rows (approximately)
+INSERT INTO `schedule_day` (`id`, `scheduleID`, `name`, `day`) VALUES
+	(58, 23, 'Monday', 1),
+	(59, 23, 'Tuesday', 2),
+	(60, 23, 'Wednesday', 3),
+	(61, 23, 'Thursday', 4),
+	(62, 23, 'Friday', 5);
 
---
--- Table structure for table `session`
---
-
-DROP TABLE IF EXISTS `session`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `session` (
+-- Dumping structure for table education.session
+CREATE TABLE IF NOT EXISTS `session` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `topic` varchar(50) DEFAULT NULL,
   `type` varchar(30) DEFAULT NULL,
@@ -453,20 +325,11 @@ CREATE TABLE `session` (
   KEY `courseInstanceID` (`courseInstanceID`),
   CONSTRAINT `session_ibfk_1` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `session`
---
+-- Dumping data for table education.session: ~0 rows (approximately)
 
---
--- Table structure for table `session_attendance`
---
-
-DROP TABLE IF EXISTS `session_attendance`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `session_attendance` (
+-- Dumping structure for table education.session_attendance
+CREATE TABLE IF NOT EXISTS `session_attendance` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `length` int(11) NOT NULL,
   `sessionID` int(11) NOT NULL,
@@ -477,20 +340,11 @@ CREATE TABLE `session_attendance` (
   CONSTRAINT `session_attendance_ibfk_1` FOREIGN KEY (`sessionID`) REFERENCES `session` (`id`) ON DELETE CASCADE,
   CONSTRAINT `session_attendance_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `session_attendance`
---
+-- Dumping data for table education.session_attendance: ~0 rows (approximately)
 
---
--- Table structure for table `shared_file`
---
-
-DROP TABLE IF EXISTS `shared_file`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `shared_file` (
+-- Dumping structure for table education.shared_file
+CREATE TABLE IF NOT EXISTS `shared_file` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(100) NOT NULL,
   `courseInstanceID` int(11) NOT NULL,
@@ -501,20 +355,11 @@ CREATE TABLE `shared_file` (
   CONSTRAINT `courseInstanceID_fk` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE,
   CONSTRAINT `shared_file_ibfk_1` FOREIGN KEY (`assignmentID`) REFERENCES `assignment` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `shared_file`
---
+-- Dumping data for table education.shared_file: ~0 rows (approximately)
 
---
--- Table structure for table `student`
---
-
-DROP TABLE IF EXISTS `student`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `student` (
+-- Dumping structure for table education.student
+CREATE TABLE IF NOT EXISTS `student` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(30) NOT NULL,
   `firstname` varchar(30) NOT NULL,
@@ -534,21 +379,14 @@ CREATE TABLE `student` (
   KEY `classInstanceID` (`classInstanceID`),
   CONSTRAINT `student_ibfk_1` FOREIGN KEY (`parentID`) REFERENCES `parent` (`id`),
   CONSTRAINT `student_ibfk_2` FOREIGN KEY (`classInstanceID`) REFERENCES `class_instance` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `student`
---
+-- Dumping data for table education.student: ~1 rows (approximately)
+INSERT INTO `student` (`id`, `password`, `firstname`, `lastname`, `email`, `phone`, `nationality`, `age`, `schoolYear`, `gender`, `parentID`, `classInstanceID`, `address`) VALUES
+	(20, 'password', 'Ergys', 'Rrjolli', 'rrjolligys@gmail.com', '068937290', 'Albania', 18, NULL, 'male', NULL, 23, 'adress');
 
---
--- Table structure for table `student_file`
---
-
-DROP TABLE IF EXISTS `student_file`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `student_file` (
+-- Dumping structure for table education.student_file
+CREATE TABLE IF NOT EXISTS `student_file` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `filename` varchar(100) NOT NULL,
   `studentID` int(11) NOT NULL,
@@ -562,21 +400,14 @@ CREATE TABLE `student_file` (
   CONSTRAINT `courseInstanceID` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE,
   CONSTRAINT `student_file_ibfk_1` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE,
   CONSTRAINT `student_file_ibfk_2` FOREIGN KEY (`assignmentID`) REFERENCES `assignment` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `student_file`
---
+-- Dumping data for table education.student_file: ~1 rows (approximately)
+INSERT INTO `student_file` (`id`, `filename`, `studentID`, `courseInstanceID`, `assignmentID`, `posted_on`) VALUES
+	(65, 'message-1724154374431.txt', 20, 65, 18, '2024-08-20 11:46:14');
 
---
--- Table structure for table `teacher`
---
-
-DROP TABLE IF EXISTS `teacher`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `teacher` (
+-- Dumping structure for table education.teacher
+CREATE TABLE IF NOT EXISTS `teacher` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(30) NOT NULL,
   `firstname` varchar(30) NOT NULL,
@@ -589,19 +420,14 @@ CREATE TABLE `teacher` (
   `gender` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `teacher`
---
+-- Dumping data for table education.teacher: ~1 rows (approximately)
+INSERT INTO `teacher` (`id`, `password`, `firstname`, `lastname`, `email`, `phone`, `nationality`, `address`, `age`, `gender`) VALUES
+	(12, 'password', 'Teacher', 'Teacher', 'teacher1@gmail.com', '0681923012', 'Albania', 'Tirane', 45, 'male');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-05-18 17:13:46
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;

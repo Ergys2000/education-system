@@ -58,7 +58,8 @@ function NewSession(props) {
 		topic: "",
 		type: "lecture",
 		length: 1,
-		date: ""
+		date: "",
+		week: 1,
 	});
 
 	const [attendedList, setAttendedList] = useState([]);
@@ -204,6 +205,10 @@ function NewSession(props) {
 			<label>
 				Date:
 				<input name="date" placeholder="Date" type="date" onChange={handleChange} value={session.date} />
+			</label>
+			<label>
+				Week:
+				<input name="wekk" placeholder="Week" type="number" onChange={handleChange} value={session.week} />
 			</label>
 			<button onClick={onSubmit}>Submit</button>
 			<div className="horizontal-divider"></div>
