@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.admin: ~2 rows (approximately)
+-- Dumping data for table education.admin: ~0 rows (approximately)
+DELETE FROM `admin`;
 INSERT INTO `admin` (`id`, `firstname`, `lastname`, `email`, `password`, `age`, `gender`, `access`) VALUES
 	(1, 'ergys', 'ergys', 'name@gmail.com', 'password', 20, 'male', 'supervisor'),
 	(5, 'ergys', 'rrjolli', 'rrjolligys@gmail.com', 'password', 22, 'male', 'supervisor');
@@ -46,7 +47,8 @@ CREATE TABLE IF NOT EXISTS `assignment` (
   CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.assignment: ~1 rows (approximately)
+-- Dumping data for table education.assignment: ~0 rows (approximately)
+DELETE FROM `assignment`;
 INSERT INTO `assignment` (`id`, `title`, `description`, `courseInstanceID`, `due`, `releaseDate`) VALUES
 	(18, 'Homework 1', 'Finish these', 65, '2024-08-23 13:45:00', '2024-08-19 13:45:00');
 
@@ -57,7 +59,8 @@ CREATE TABLE IF NOT EXISTS `class` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.class: ~1 rows (approximately)
+-- Dumping data for table education.class: ~0 rows (approximately)
+DELETE FROM `class`;
 INSERT INTO `class` (`id`, `name`) VALUES
 	(13, 'Computer engineering 1');
 
@@ -78,7 +81,8 @@ CREATE TABLE IF NOT EXISTS `class_instance` (
   CONSTRAINT `schedule_fk` FOREIGN KEY (`scheduleID`) REFERENCES `schedule` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.class_instance: ~1 rows (approximately)
+-- Dumping data for table education.class_instance: ~0 rows (approximately)
+DELETE FROM `class_instance`;
 INSERT INTO `class_instance` (`id`, `year`, `classID`, `scheduleID`, `teacherID`, `name`) VALUES
 	(23, 2022, 13, 23, 12, 'Computer engineering 1 - 2022');
 
@@ -90,7 +94,8 @@ CREATE TABLE IF NOT EXISTS `course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.course: ~1 rows (approximately)
+-- Dumping data for table education.course: ~0 rows (approximately)
+DELETE FROM `course`;
 INSERT INTO `course` (`id`, `name`, `category`) VALUES
 	(21, 'Calculus 1', 'Mathematics');
 
@@ -109,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `course_registration` (
   CONSTRAINT `teacher_fk` FOREIGN KEY (`teacherID`) REFERENCES `teacher` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.course_registration: ~1 rows (approximately)
+-- Dumping data for table education.course_registration: ~0 rows (approximately)
+DELETE FROM `course_registration`;
 INSERT INTO `course_registration` (`id`, `classInstanceID`, `courseID`, `teacherID`) VALUES
 	(65, 23, 21, 12);
 
@@ -127,7 +133,8 @@ CREATE TABLE IF NOT EXISTS `day_hours` (
   CONSTRAINT `day_hours_ibfk_1` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.day_hours: ~2 rows (approximately)
+-- Dumping data for table education.day_hours: ~0 rows (approximately)
+DELETE FROM `day_hours`;
 INSERT INTO `day_hours` (`id`, `dayID`, `courseInstanceID`, `start`, `end`) VALUES
 	(97, 59, 65, '10:00:00', '10:50:00'),
 	(98, 60, 65, '16:30:00', '17:30:00');
@@ -145,6 +152,7 @@ CREATE TABLE IF NOT EXISTS `event` (
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.event: ~0 rows (approximately)
+DELETE FROM `event`;
 
 -- Dumping structure for table education.event_image
 CREATE TABLE IF NOT EXISTS `event_image` (
@@ -157,6 +165,7 @@ CREATE TABLE IF NOT EXISTS `event_image` (
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.event_image: ~0 rows (approximately)
+DELETE FROM `event_image`;
 
 -- Dumping structure for table education.grade
 CREATE TABLE IF NOT EXISTS `grade` (
@@ -173,7 +182,8 @@ CREATE TABLE IF NOT EXISTS `grade` (
   CONSTRAINT `grade_ibfk_2` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.grade: ~1 rows (approximately)
+-- Dumping data for table education.grade: ~0 rows (approximately)
+DELETE FROM `grade`;
 INSERT INTO `grade` (`id`, `studentID`, `grade`, `date`, `courseInstanceID`, `comment`) VALUES
 	(65, 20, 9, '2024-08-20', 65, 'Grades for Homework 1');
 
@@ -184,12 +194,14 @@ CREATE TABLE IF NOT EXISTS `jwt_token` (
   `type` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user` (`userID`,`type`)
-) ENGINE=InnoDB AUTO_INCREMENT=662 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=664 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.jwt_token: ~3 rows (approximately)
+-- Dumping data for table education.jwt_token: ~4 rows (approximately)
+DELETE FROM `jwt_token`;
 INSERT INTO `jwt_token` (`id`, `userID`, `type`) VALUES
 	(659, 1, 'admin'),
-	(660, 12, 'teacher'),
+	(662, 5, 'admin'),
+	(663, 12, 'teacher'),
 	(661, 20, 'student');
 
 -- Dumping structure for table education.parent
@@ -206,6 +218,7 @@ CREATE TABLE IF NOT EXISTS `parent` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.parent: ~0 rows (approximately)
+DELETE FROM `parent`;
 
 -- Dumping structure for table education.post
 CREATE TABLE IF NOT EXISTS `post` (
@@ -224,7 +237,8 @@ CREATE TABLE IF NOT EXISTS `post` (
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.post: ~1 rows (approximately)
+-- Dumping data for table education.post: ~0 rows (approximately)
+DELETE FROM `post`;
 INSERT INTO `post` (`id`, `title`, `posted_on`, `courseInstanceID`, `teacherID`, `studentID`) VALUES
 	(55, 'Notification', '2024-08-20 11:37:44', 65, 12, NULL);
 
@@ -238,7 +252,8 @@ CREATE TABLE IF NOT EXISTS `post_body` (
   CONSTRAINT `postID` FOREIGN KEY (`postID`) REFERENCES `post` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.post_body: ~1 rows (approximately)
+-- Dumping data for table education.post_body: ~0 rows (approximately)
+DELETE FROM `post_body`;
 INSERT INTO `post_body` (`id`, `postID`, `body`) VALUES
 	(58, 55, 'make sure you prepare for the test on monday');
 
@@ -259,7 +274,8 @@ CREATE TABLE IF NOT EXISTS `post_comment` (
   CONSTRAINT `post_comment_ibfk_3` FOREIGN KEY (`studentID`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table education.post_comment: ~1 rows (approximately)
+-- Dumping data for table education.post_comment: ~0 rows (approximately)
+DELETE FROM `post_comment`;
 INSERT INTO `post_comment` (`id`, `comment`, `postID`, `commented_on`, `studentID`, `teacherID`) VALUES
 	(37, 'This is a comment to a post', 55, '2024-08-20 11:37:57', NULL, 12);
 
@@ -278,7 +294,8 @@ CREATE TABLE IF NOT EXISTS `register` (
   CONSTRAINT `register_ibfk_2` FOREIGN KEY (`courseInstanceID`) REFERENCES `course_registration` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.register: ~1 rows (approximately)
+-- Dumping data for table education.register: ~0 rows (approximately)
+DELETE FROM `register`;
 INSERT INTO `register` (`id`, `mark`, `comment`, `date`, `studentID`, `courseInstanceID`) VALUES
 	(31, '3', 'behaved badly', '2024-08-14', 20, 65);
 
@@ -289,7 +306,8 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.schedule: ~1 rows (approximately)
+-- Dumping data for table education.schedule: ~0 rows (approximately)
+DELETE FROM `schedule`;
 INSERT INTO `schedule` (`id`, `name`) VALUES
 	(23, 'Computer Engineering 1');
 
@@ -305,6 +323,7 @@ CREATE TABLE IF NOT EXISTS `schedule_day` (
 ) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.schedule_day: ~5 rows (approximately)
+DELETE FROM `schedule_day`;
 INSERT INTO `schedule_day` (`id`, `scheduleID`, `name`, `day`) VALUES
 	(58, 23, 'Monday', 1),
 	(59, 23, 'Tuesday', 2),
@@ -327,6 +346,7 @@ CREATE TABLE IF NOT EXISTS `session` (
 ) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.session: ~0 rows (approximately)
+DELETE FROM `session`;
 
 -- Dumping structure for table education.session_attendance
 CREATE TABLE IF NOT EXISTS `session_attendance` (
@@ -342,6 +362,7 @@ CREATE TABLE IF NOT EXISTS `session_attendance` (
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.session_attendance: ~0 rows (approximately)
+DELETE FROM `session_attendance`;
 
 -- Dumping structure for table education.shared_file
 CREATE TABLE IF NOT EXISTS `shared_file` (
@@ -357,6 +378,7 @@ CREATE TABLE IF NOT EXISTS `shared_file` (
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.shared_file: ~0 rows (approximately)
+DELETE FROM `shared_file`;
 
 -- Dumping structure for table education.student
 CREATE TABLE IF NOT EXISTS `student` (
@@ -381,7 +403,8 @@ CREATE TABLE IF NOT EXISTS `student` (
   CONSTRAINT `student_ibfk_2` FOREIGN KEY (`classInstanceID`) REFERENCES `class_instance` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.student: ~1 rows (approximately)
+-- Dumping data for table education.student: ~0 rows (approximately)
+DELETE FROM `student`;
 INSERT INTO `student` (`id`, `password`, `firstname`, `lastname`, `email`, `phone`, `nationality`, `age`, `schoolYear`, `gender`, `parentID`, `classInstanceID`, `address`) VALUES
 	(20, 'password', 'Ergys', 'Rrjolli', 'rrjolligys@gmail.com', '068937290', 'Albania', 18, NULL, 'male', NULL, 23, 'adress');
 
@@ -402,7 +425,8 @@ CREATE TABLE IF NOT EXISTS `student_file` (
   CONSTRAINT `student_file_ibfk_2` FOREIGN KEY (`assignmentID`) REFERENCES `assignment` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table education.student_file: ~1 rows (approximately)
+-- Dumping data for table education.student_file: ~0 rows (approximately)
+DELETE FROM `student_file`;
 INSERT INTO `student_file` (`id`, `filename`, `studentID`, `courseInstanceID`, `assignmentID`, `posted_on`) VALUES
 	(65, 'message-1724154374431.txt', 20, 65, 18, '2024-08-20 11:46:14');
 
@@ -423,6 +447,7 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table education.teacher: ~1 rows (approximately)
+DELETE FROM `teacher`;
 INSERT INTO `teacher` (`id`, `password`, `firstname`, `lastname`, `email`, `phone`, `nationality`, `address`, `age`, `gender`) VALUES
 	(12, 'password', 'Teacher', 'Teacher', 'teacher1@gmail.com', '0681923012', 'Albania', 'Tirane', 45, 'male');
 
